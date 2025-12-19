@@ -1,0 +1,22 @@
+name: Cypress CI
+
+on: push
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chrome, electron]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: ${{matrix.browser}}
+          headless: true
